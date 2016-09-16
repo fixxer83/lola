@@ -63,24 +63,26 @@ function outputProductCategories($product_categories)
         return;
     }
     
+    echo "<ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu3\">";
+    
     // Outputting results
     foreach($product_categories as $category)
-    {
+    {       
         // Echo category
-        echo "<div class=\"col-sm-3\">
-        <h5>" . $category["category"] . "</h5><ul>";
-
+        echo "<li class=\"dropdown-header\">" . ucfirst($category["category"]) . "</li>";
+        
         $sub_categories = fetch_product_sub_categories($category["category"]);
 
         foreach($sub_categories as $sub_category)
         {
-            // Set surro
+            // Set key
             $comp_id = $category["category"] . "_" . $sub_category["sub_cat_name"];
+            
             // Echo sub category
-            echo "<li id=\"" . $comp_id .  "\"><a href='#'>" . $sub_category["sub_cat_name"] . "</a></li>";
+            echo "<li id=\"" . $comp_id .  "\"><a href='#'>" . ucfirst($sub_category["sub_cat_name"]) . "</a></li>";
         }
-
-        echo "</ul></div>";
     }
+    
+    echo "</ul>";
 }
    

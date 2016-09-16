@@ -1,11 +1,14 @@
 /** Your theme modifications here **/
-/*body {
-    background-color: #95bfb8;
-    background-image: url("../img/bck/ptrn002.png");
-}*/
+body {
+    
+/*    background-image: url("../img/bck/jns.png");*/
+background-color: #54c7a1;
+background-image: url("https://www.transparenttextures.com/patterns/gray-floral.png");
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+}
 
 #main {
-   position: relative;
+  /* position: relative;*/
 }
 #main:after {
     content : "";
@@ -13,18 +16,20 @@
     position: absolute;
     top: 0;
     left: 0;
-    background-image: url("../img/bck/ptrn002.png");
     width: 100%;
     height: 100%;
     opacity : 0.4;
     z-index: -1;
 }
 
-
-
 .hoverable:hover {
     background-color: #8dcfc6;
 }
+
+/*footer
+{
+    position: absolute;
+}*/
 
 
 /*background-color: #95bfb8;
