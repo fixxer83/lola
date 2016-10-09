@@ -1405,7 +1405,8 @@ pre code {
 }
 @media (min-width: 1200px) {
     .container {
-        width: 1170px
+        /*width: 1170px*/
+        width: 50%;
     }
 }
 .container-fluid {
@@ -2443,7 +2444,7 @@ output {
 }
 .form-control {
     display: block;
-    width: 100%;
+    width: 70%;
     height: 34px;
     padding: 6px 12px;
     font-size: 14px;
@@ -3303,9 +3304,10 @@ tbody.collapse.in {
 .dropdown-header {
     display: block;
     padding: 3px 20px;
-    font-size: 12px;
-    line-height: 1.42857143;
-    color: #777;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.5;
+    /*line-height: 1.42857143;*/
     white-space: nowrap
 }
 .dropdown-backdrop {
@@ -4152,7 +4154,9 @@ select[multiple].input-group-sm>.input-group-btn>.btn {
 .navbar-nav>li>.dropdown-menu {
     margin-top: 0;
     border-top-left-radius: 0;
-    border-top-right-radius: 0
+    border-top-right-radius: 0;
+    font-family: "Roboto", Helvetica, Arial, sans-serif;
+    color: #555555;
 }
 .navbar-fixed-bottom .navbar-nav>li>.dropdown-menu {
     border-bottom-right-radius: 0;
@@ -4914,7 +4918,9 @@ a.thumbnail.active {
 
 .list-group {
     padding-left: 0;
-    margin-bottom: 20px
+    margin-bottom: 20px;
+    font-family: "Roboto", Helvetica, Arial, sans-serif;
+    color: #555555;
 }
 .list-group-item {
     position: relative;
@@ -4922,7 +4928,8 @@ a.thumbnail.active {
     padding: 10px 15px;
     margin-bottom: -1px;
     background-color: #fff;
-    border: 1px solid #ddd
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 .list-group-item:first-child {
     border-top-left-radius: 4px;
@@ -5082,8 +5089,12 @@ a.list-group-item-danger.active:focus {
     border-color: #a94442
 }
 .list-group-item-heading {
-    margin-top: 0;
-    margin-bottom: 5px
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: block;
+    font-weight: bold;
+    font-size: larger;
+    color: #000000;
 }
 .list-group-item-text {
     margin-bottom: 0;
@@ -5098,10 +5109,12 @@ a.list-group-item-danger.active:focus {
     box-shadow: 0 1px 1px rgba(0, 0, 0, .05)
 }
 .panel-body {
-    padding: 15px
+    /*padding: 15px;*/
+    padding: 5px;
+
 }
 .panel-heading {
-    padding: 10px 15px;
+    padding: 5px 10px;
     border-bottom: 1px solid transparent;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px
@@ -5290,7 +5303,8 @@ a.list-group-item-danger.active:focus {
     border-bottom: 1px solid #ddd
 }
 .panel-default {
-    border-color: #ddd
+    border-color: #ddd;
+    width: 50%;
 }
 .panel-default>.panel-heading {
     color: #333;

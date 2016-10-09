@@ -259,6 +259,7 @@ h1 {
   padding: 20px;
   -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  text-align: -webkit-left;
 }
 .box .box-header {
   background: #f7f7f7;
@@ -553,7 +554,7 @@ h1 {
   }
 }
 #content .product .text {
-  padding: 10px 10px 0;
+  padding: 5px 5px 0;
 }
 #content .product .text h3 {
   font-size: 18px;
@@ -568,7 +569,8 @@ h1 {
 #content .product .text p.price {
   font-size: 18px;
   text-align: center;
-  font-weight: 300;
+  font-weight: 500;
+  color: #555555;
 }
 #content .product .text p.price del {
   color: #999999;
@@ -936,13 +938,16 @@ h1 {
   background-color: #4a7f45;
 }
 #copyright {
-  background: #333;
-  color: #ccc;
-  padding: 20px 0;
-  font-size: 12px;
+/*  background: #333;
+  color: #ccc;*/
+/*  padding-left: 15px;
+  padding-top: 15px;*/
+  font-size: 10px;
+  text-align: center;
+  padding-bottom: 0;
 }
 #copyright p {
-  margin: 0;
+  margin: 10px;
 }
 @media (max-width: 991px) {
   #copyright p {
@@ -1362,7 +1367,10 @@ hr {
   padding: 8px 15px;
   margin-bottom: 20px;
   background-color: #ffffff;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  color: #555555;
   border-radius: 0;
+  font-weight: 500;
 }
 .breadcrumb > li + li:before {
   content: ">\00a0";
@@ -1454,8 +1462,9 @@ label {
   font-weight: normal;
 }
 .form-control {
-  -webkit-box-shadow: none;
-  box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    margin-right: 5%;
 }
 .form-group {
   margin-bottom: 20px;
@@ -1502,7 +1511,7 @@ label {
   padding: 6px 12px;
   line-height: 1.42857143;
   text-decoration: none;
-  color: #8dcfc6;
+  color: #000000;
   background-color: #ffffff;
   border: 1px solid #dddddd;
 }
@@ -1569,10 +1578,10 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: inherit;
-  font-weight: 500;
-  line-height: 1.1;
-  color: inherit;
+    font-family: "Roboto", Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    line-height: 1.1;
+    color: #555555;
 }
 h1,
 .h1,
@@ -1580,8 +1589,8 @@ h2,
 .h2,
 h3,
 .h3 {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
 p,
 ul,
