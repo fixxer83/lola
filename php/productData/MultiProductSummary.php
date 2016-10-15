@@ -34,11 +34,13 @@ function outputProductData($fullProductCategory)
             . "<img src=\"img/product_images/" . $data["main_image"] . "\" alt=\"product image\" class=\"img-responsive\">"
             . "</a>"
             . "<div class=\"text\">"
-            ."<h3><a href=\"detail_1.php\">" . ucfirst($data["product_name"]) . "</a></h3>"
+            ."<h3><a href=\"#\" onclick=\"initiateSessionAndSetDivs('" . SessionNameEnum::SINGLE_PROD_NUM . "', ". $data["id"] . ", '#" . DivEnum::MULTI_PRODUCT_DIV . "',"
+                . "'" . DivEnum::SINGLE_PRODUCT_DIV .  "' )\">" . ucfirst($data["product_name"]) . "</a></h3>"
             . "<p class=\"price\">€ " . $data["price"] . "</p>"
             . "<p class=\"buttons\">"
             ."<div class=\"btn-group\" role=\"group\" aria-label=\"Test\">"
-            . "<a href=\"#\" onclick=\"initiateSessionDetail(". $data["id"] . ")\" class=\"btn btn-default\">View detail</a><a href=\"basket.html\" class=\"btn btn-primary\">"
+            . "<a href=\"#\" onclick=\"initiateSessionAndSetDivs('" . SessionNameEnum::SINGLE_PROD_NUM . "', ". $data["id"] . ", '#" . DivEnum::MULTI_PRODUCT_DIV . "',"
+                . "'" . DivEnum::SINGLE_PRODUCT_DIV .  "' )\" class=\"btn btn-default\">View detail</a><a href=\"basket.html\" class=\"btn btn-primary\">"
             . "<i class=\"fa fa-shopping-cart\"></i></a>"
             . "</div></p>";
         
@@ -79,10 +81,11 @@ function outputSingleProductDetails($id)
         . "<p class=\"price\">€ " . $data["price"] . "</p>"
         . "<p class=\"buttons\">"
         . "<div class=\"btn-group\" role=\"group\" aria-label=\"Test\">"
-        . "<a href=\"#\" onclick=\"#\" class=\"btn btn-default\">View detail</a><a href=\"basket.html\" class=\"btn btn-primary\">"
+        . "<a href=\"#\" onclick=\"initiateSessionAndSetDivs('".SessionNameEnum::FULL_PROD_CAT."',"
+                    . "'".$_SESSION['full_product_category']."','#".DivEnum::SINGLE_PRODUCT_DIV."','".DivEnum::MULTI_PRODUCT_DIV."')\" class=\"btn btn-default\">Back</a><a href=\"basket.html\" class=\"btn btn-primary\">"
         . "<i class=\"fa fa-shopping-cart\"></i></a>"
         . "</div>"
-        . "</br></br><button class=\"btn btn-primary\"><i class=\"fa fa-reply\"></i> Back</button></p>"
+        . "</p>"
         . "</div>";
         
         // Images

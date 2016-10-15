@@ -2,6 +2,8 @@
 
 include (__DIR__ . '\..\mysql\Connection.php');
 include (__DIR__ . '\..\enums\ClassEnum.php');
+include (__DIR__ . '\..\enums\SessionNameEnum.php');
+include (__DIR__ . '\..\enums\DivEnum.php');
 
 /**
  * 
@@ -64,7 +66,9 @@ function outputProductCategoriesToDropDown($product_categories)
             $comp_id = $category["category"] . "_" . $sub_category["sub_cat_name"];
             
             // Echo sub category
-            echo "<li id=\"" . $comp_id .  "\" class=\"" . ClassEnum::Category_Click_Class . "\" onclick=\"initiateSessionCategory(this.id)\"><a href='#'>" . ucfirst($sub_category["sub_cat_name"]) . "</a></li>";
+            echo "<li id=\"" . $comp_id .  "\" class=\"" . ClassEnum::Category_Click_Class . "\" onclick=\"initiateSessionAndSetDivs('".SessionNameEnum::FULL_PROD_CAT."',"
+                    . "'".$comp_id."','#".DivEnum::INDEX_DIV."','".DivEnum::MULTI_PRODUCT_DIV."')\"><a href='#'>"
+                    . ucfirst($sub_category["sub_cat_name"]) . "</a></li>";
         }
     }
     
@@ -92,7 +96,7 @@ function outputProductCategoriesToSideBar($product_categories)
     foreach($product_categories as $category)
     {       
         // Echo category
-        echo "<ul class=\"list-group\"><li class=\"list-group-item-heading\"><a href=\"category.html\">" . ucfirst($category["category"]) . "</a></li>";
+        echo "<ul class=\"list-group\"><li class=\"list-group-item-heading\"><a href=\"category.html\" >" . ucfirst($category["category"]) . "</a></li>";
         
         $sub_categories = fetch_product_sub_categories($category["category"]);
 
@@ -102,7 +106,8 @@ function outputProductCategoriesToSideBar($product_categories)
             $comp_id = $category["category"] . "_" . $sub_category["sub_cat_name"];
             
             // Echo sub category
-            echo "<li class=\"list-group-item " . ClassEnum::Category_Click_Class ."\" id=\"" . $comp_id . "\" onclick=\"initiateSessionCategory(this.id)\"><a href='#'>" . ucfirst($sub_category["sub_cat_name"]) . "</a></li>";
+            echo "<li class=\"list-group-item " . ClassEnum::Category_Click_Class ."\" id=\"" . $comp_id . "\" onclick=\"initiateSessionAndSetDivs('".SessionNameEnum::FULL_PROD_CAT."',"
+                    . "'".$comp_id."','#".DivEnum::INDEX_DIV."','".DivEnum::MULTI_PRODUCT_DIV."')\"><a href='#'>" . ucfirst($sub_category["sub_cat_name"]) . "</a></li>";
         }
         
         echo "</ul>";

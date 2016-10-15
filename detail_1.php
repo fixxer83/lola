@@ -26,8 +26,7 @@
       <script src="js/respond.min.js"></script>
       
       <!-- Updates -->
-      <script src="js/category-selection.js"></script>
-      <script src="js/product-detail.js"></script>
+      <script src="js/products.js"></script>
       
    </head>
    <body>

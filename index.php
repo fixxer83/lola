@@ -29,8 +29,7 @@ session_start();
         <!-- updates -->
         <link href="css/custom.css" rel="stylesheet">
         <script src="js/respond.min.js"></script>
-        <script src="js/category-selection.js"></script>
-        <script src="js/product-detail.js"></script>
+        <script src="js/products.js"></script>
         <link rel="shortcut icon" href="favicon.png">
         <script 
             src="https://code.jquery.com/jquery-1.12.4.js"
@@ -40,6 +39,36 @@ session_start();
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     </head>
     <body>
+        
+        <script>
+//            
+//            $(window).bind('beforeunload', function(e) { 
+//                return "Are you sure you want to return to the homepage?"
+//                e.preventDefault();
+//            });
+//            
+//            
+//            $(document).ready(function(){
+//                $(document).on("keydown", disableF5);
+//            });
+//            
+//            // slight update to account for browsers not supporting e.which
+//            function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); };
+//            // To disable f5
+//                /* jQuery < 1.7 */
+//            $(document).bind("keydown", disableF5);
+//            /* OR jQuery >= 1.7 */
+//            $(document).on("keydown", disableF5);
+//
+//            // To re-enable f5
+//                /* jQuery < 1.7 */
+//            $(document).unbind("keydown", disableF5);
+//            /* OR jQuery >= 1.7 */
+//            $(document).off("keydown", disableF5);
+        </script>
+        
+        
+        
         <div id="main" class="main">
             <!-- *** nav start *** -->
             <nav class="navbar navbar-default">
@@ -111,7 +140,7 @@ session_start();
                     </div>
                 </div>
             </nav>
-            <!-- nav end -->
+            <!-- nav end -->                
             
             <!-- *** page_content Start*** -->
             <div class="page_content" id="page_content">

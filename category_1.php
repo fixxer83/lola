@@ -29,13 +29,20 @@ session_start();
     <link href="css/custom.css" rel="stylesheet">
     <script src="js/respond.min.js"></script>
     <!-- Updates -->
-    <script src="js/category-selection.js"></script>
-    <script src="js/product-detail.js"></script>
+    <script src="js/products.js"></script>
 </head>
 
 
 
-<body> 
+<body>
+    <script>
+        
+        $("#content").submit(function(e) {
+            e.preventDefault();
+        });
+    
+    </script>
+    
     <div class="col-md-3">
         <!-- *** MENUS AND FILTERS ***-->
         <div class="panel panel-default">

@@ -3,23 +3,47 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 function initiateSessionCategory(id)
-{
-    var className = id;
-    var session = className.split("_");
-    
+{    
     //Initiate full product category session
     initSessionAndReload("full_product_category", id);
-        
+    
     // Hide non-products div
     hideNonProductDiv();
     
     // Show Products
     displayProductDiv();
     
-    return session;
+    //return session;
+}
+
+
+function setSessionAndGoToProducts(sessionId, divToHide, divToShow)
+{    
+    //Initiate full product category session
+    initSessionAndReload("full_product_category", sessionId);
+        
+    showAndHideDiv(divToHide, divToShow);
+    
+    //return session;
+}
+
+function showAndHideDiv(divToHide, divToShow)
+{
+    hideDiv(divToHide);
+    
+    showDiv(divToShow);
+    
+}
+
+function hideDiv(id)
+{
+   $(id).hide();
+}
+
+function showDiv(id)
+{
+   document.getElementById(id).style.display = "block";
 }
 
 function hideNonProductDiv()
