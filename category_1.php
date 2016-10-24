@@ -30,18 +30,17 @@ session_start();
     <script src="js/respond.min.js"></script>
     <!-- Updates -->
     <script src="js/products.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 
-
-
 <body>
-    <script>
-        
-        $("#content").submit(function(e) {
-            e.preventDefault();
-        });
     
-    </script>
+    <div class="prelim_stuff" id="prelim_stuff">
+        <!-- This section will be used to load the navbar and categories sidebar -->
+<!--        <script>
+        $('#prelim_stuff').load('index.php #nav_div');
+        </script>-->
+    </div>
     
     <div class="col-md-3">
         <!-- *** MENUS AND FILTERS ***-->

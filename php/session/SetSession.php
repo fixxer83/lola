@@ -1,11 +1,6 @@
 <?php
 
-include './DestroySession.php';
-
-$tempSessionHeaderName = filter_input(INPUT_POST, 'sessionHeaderName');
-$tempSession = filter_input(INPUT_POST, 'session');
-
-setSession($tempSessionHeaderName, $tempSession);
+include 'DestroySession.php';
 
 /**
  * Create new session according to the
@@ -21,9 +16,6 @@ function setSession($sessionHeaderName, $session)
     {
         // Start the session
         session_start();
-        //destroySession($sessionHeaderName);
-        
-        //$_SESSION[$sessionHeaderName] = $session; 
     }
     
     // Start the session
@@ -31,8 +23,4 @@ function setSession($sessionHeaderName, $session)
     destroySession($sessionHeaderName);
         
     $_SESSION[$sessionHeaderName] = $session;
-    
-    
-    
-    
 }

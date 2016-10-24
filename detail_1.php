@@ -30,6 +30,17 @@
       
    </head>
    <body>
+       
+<!--       <script>
+            if(history.pushState) {
+                history.pushState(null, null, 'products/details');
+            }
+            else {
+                location.hash = 'products';
+            }
+        </script>-->
+       
+       
       <div id="all">
          <div id="content">
             <div id="single_product_details" class="single_product">

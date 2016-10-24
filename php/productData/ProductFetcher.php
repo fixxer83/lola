@@ -66,8 +66,8 @@ function outputProductCategoriesToDropDown($product_categories)
             $comp_id = $category["category"] . "_" . $sub_category["sub_cat_name"];
             
             // Echo sub category
-            echo "<li id=\"" . $comp_id .  "\" class=\"" . ClassEnum::Category_Click_Class . "\" onclick=\"initiateSessionAndSetDivs('".SessionNameEnum::FULL_PROD_CAT."',"
-                    . "'".$comp_id."','#".DivEnum::INDEX_DIV."','".DivEnum::MULTI_PRODUCT_DIV."')\"><a href='#'>"
+            echo "<li id=\"" . $comp_id .  "\" class=\"" . ClassEnum::Category_Click_Class . "\" onclick=\"navigate('".SessionNameEnum::FULL_PROD_CAT."',"
+                    . "'".$comp_id."','#".DivEnum::INDEX_DIV."','".DivEnum::MULTI_PRODUCT_DIV."')\"><a href='/lola/category_1.php'>"
                     . ucfirst($sub_category["sub_cat_name"]) . "</a></li>";
         }
     }
@@ -106,8 +106,8 @@ function outputProductCategoriesToSideBar($product_categories)
             $comp_id = $category["category"] . "_" . $sub_category["sub_cat_name"];
             
             // Echo sub category
-            echo "<li class=\"list-group-item " . ClassEnum::Category_Click_Class ."\" id=\"" . $comp_id . "\" onclick=\"initiateSessionAndSetDivs('".SessionNameEnum::FULL_PROD_CAT."',"
-                    . "'".$comp_id."','#".DivEnum::INDEX_DIV."','".DivEnum::MULTI_PRODUCT_DIV."')\"><a href='#'>" . ucfirst($sub_category["sub_cat_name"]) . "</a></li>";
+            echo "<li class=\"list-group-item " . ClassEnum::Category_Click_Class ."\" id=\"" . $comp_id . "\" onclick=\"navigate('".SessionNameEnum::FULL_PROD_CAT."',"
+                    . "'".$comp_id."','#".DivEnum::INDEX_DIV."','".DivEnum::MULTI_PRODUCT_DIV."')\"><a href='/lola/category_1.php'>" . ucfirst($sub_category["sub_cat_name"]) . "</a></li>";
         }
         
         echo "</ul>";

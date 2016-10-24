@@ -40,118 +40,101 @@ session_start();
     </head>
     <body>
         
-        <script>
-//            
-//            $(window).bind('beforeunload', function(e) { 
-//                return "Are you sure you want to return to the homepage?"
-//                e.preventDefault();
-//            });
-//            
-//            
-//            $(document).ready(function(){
-//                $(document).on("keydown", disableF5);
-//            });
-//            
-//            // slight update to account for browsers not supporting e.which
-//            function disableF5(e) { if ((e.which || e.keyCode) == 116) e.preventDefault(); };
-//            // To disable f5
-//                /* jQuery < 1.7 */
-//            $(document).bind("keydown", disableF5);
-//            /* OR jQuery >= 1.7 */
-//            $(document).on("keydown", disableF5);
-//
-//            // To re-enable f5
-//                /* jQuery < 1.7 */
-//            $(document).unbind("keydown", disableF5);
-//            /* OR jQuery >= 1.7 */
-//            $(document).off("keydown", disableF5);
-        </script>
-        
+<!--        <script>
+            if(history.pushState) {
+                history.pushState(null, null, 'main');
+            }
+            else {
+                location.hash = '/main';
+            }
+        </script>        -->
         
         
         <div id="main" class="main">
-            <!-- *** nav start *** -->
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <a class="navbar-brand home" href="index.php" data-animate-hover="">
-                        <img src="img/logo.png" alt="Lola logo" class="hidden-xs">
-                        <img src="img/logo-small.png" alt="Lola logo" class="visible-xs"><span class="sr-only">Lola - go to homepage</span>
-                        </a>
-                        <div class="navbar-buttons">
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation">
-                            <span class="sr-only">Toggle navigation</span>
-                            <i class="fa fa-align-justify"></i>
-                            </button>
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#search">
-                            <span class="sr-only">Toggle search</span>
-                            <i class="fa fa-search"></i>
-                            </button>
-                            <a class="btn btn-default navbar-toggle" href="basket.html">
-                            <i class="fa fa-shopping-cart"></i> <span class="hidden-xs"></span>
+            <div id="nav_div" class="nav_div">
+                <!-- *** nav start *** -->
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <a class="navbar-brand home" href="index.php" data-animate-hover="">
+                            <img src="img/logo.png" alt="Lola logo" class="hidden-xs">
+                            <img src="img/logo-small.png" alt="Lola logo" class="visible-xs"><span class="sr-only">Lola - go to homepage</span>
                             </a>
-                        </div>
-                    </div>
-                    
-                    <!--/.navbar-header -->
-                    <div class="navbar-collapse collapse" id="navigation">
-                        <ul class="nav navbar-nav navbar-left">
-                            <li class="active"><a href="index.php">Home</a>
-                            </li>
-                            <li class="dropdown yamm-fw">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">Products <b class="caret"></b></a>
-                                <?php
-                                    
-                                     outputProductCategoriesToDropDown(fetch_product_categories());  
-                                ?>
-                            </li>
-                            <li class="hoverable">
-                                <a href="#">About</a>
-                            </li>
-                            <li class="hoverable">
-                                <a href="#">Our Brands</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!--nav-collapse -->
-                    <div class="navbar-buttons">
-                        <div class="navbar-collapse collapse right" id="basket-overview">
-                            <a href="basket.html" class="btn btn-primary navbar-btn"><i class="fa fa-shopping-cart"></i><span class="hidden-sm">0</span></a>
-                        </div>
-                        <!--
-                            <!--/.nav-collapse -->
-                        <div class="navbar-collapse collapse right" id="search-not-mobile">
-                            <button type="button" class="btn navbar-btn btn-primary" data-toggle="collapse" data-target="#search">
-                            <span class="sr-only">Toggle search</span>
-                            <i class="fa fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="collapse clearfix" id="search">
-                        <form class="navbar-form" role="search">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <span class="input-group-btn">
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-                                </span>
+                            <div class="navbar-buttons">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation">
+                                <span class="sr-only">Toggle navigation</span>
+                                <i class="fa fa-align-justify"></i>
+                                </button>
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#search">
+                                <span class="sr-only">Toggle search</span>
+                                <i class="fa fa-search"></i>
+                                </button>
+                                <a class="btn btn-default navbar-toggle" href="basket.html">
+                                <i class="fa fa-shopping-cart"></i> <span class="hidden-xs"></span>
+                                </a>
                             </div>
-                        </form>
+                        </div>
+
+                        <!--/.navbar-header -->
+                        <div class="navbar-collapse collapse" id="navigation">
+                            <ul class="nav navbar-nav navbar-left">
+                                <li class="active"><a href="index.php">Home</a>
+                                </li>
+                                <li class="dropdown yamm-fw">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">Products <b class="caret"></b></a>
+                                    <?php
+
+                                         outputProductCategoriesToDropDown(fetch_product_categories());  
+                                    ?>
+                                </li>
+                                <li class="hoverable">
+                                    <a href="#">About</a>
+                                </li>
+                                <li class="hoverable">
+                                    <a href="#">Our Brands</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--nav-collapse -->
+                        <div class="navbar-buttons">
+                            <div class="navbar-collapse collapse right" id="basket-overview">
+                                <a href="basket.html" class="btn btn-primary navbar-btn"><i class="fa fa-shopping-cart"></i><span class="hidden-sm">0</span></a>
+                            </div>
+                            <!--
+                                <!--/.nav-collapse -->
+                            <div class="navbar-collapse collapse right" id="search-not-mobile">
+                                <button type="button" class="btn navbar-btn btn-primary" data-toggle="collapse" data-target="#search">
+                                <span class="sr-only">Toggle search</span>
+                                <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="collapse clearfix" id="search">
+                            <form class="navbar-form" role="search">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Search">
+                                    <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            </nav>
+                </nav>
+            </div>
             <!-- nav end -->                
             
             <!-- *** page_content Start*** -->
             <div class="page_content" id="page_content">
                 
-                <div id="product_content" style="display:none">
-                    <!-- category_1.php will be loaded in this div -->
+<!--                <div id="product_content" style="display:none">
+                     category_1.php will be loaded in this div 
                 </div>
                 
                 <div id="product_detail" style="display:none">
-                    <!-- detail_1.php will be loaded in this div -->
-                </div>
+                     detail_1.php will be loaded in this div 
+                </div>-->
                 
                 <div id="hide">
                     <div id="carousel_content">
