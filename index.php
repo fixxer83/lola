@@ -38,18 +38,7 @@ session_start();
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     </head>
-    <body>
-        
-<!--        <script>
-            if(history.pushState) {
-                history.pushState(null, null, 'main');
-            }
-            else {
-                location.hash = '/main';
-            }
-        </script>        -->
-        
-        
+    <body>        
         <div id="main" class="main">
             <div id="nav_div" class="nav_div">
                 <!-- *** nav start *** -->
@@ -89,10 +78,10 @@ session_start();
                                     ?>
                                 </li>
                                 <li class="hoverable">
-                                    <a href="#">About</a>
+                                    <a href="./about.php">About</a>
                                 </li>
                                 <li class="hoverable">
-                                    <a href="#">Our Brands</a>
+                                    <a href="./brands.php">Our Brands</a>
                                 </li>
                             </ul>
                         </div>
@@ -127,15 +116,6 @@ session_start();
             
             <!-- *** page_content Start*** -->
             <div class="page_content" id="page_content">
-                
-<!--                <div id="product_content" style="display:none">
-                     category_1.php will be loaded in this div 
-                </div>
-                
-                <div id="product_detail" style="display:none">
-                     detail_1.php will be loaded in this div 
-                </div>-->
-                
                 <div id="hide">
                     <div id="carousel_content">
                         <div class="container">

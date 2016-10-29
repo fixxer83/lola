@@ -50,7 +50,11 @@ function outputProductCategoriesToDropDown($product_categories)
         return;
     }
     
-    echo "<ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu3\">";
+    echo "<ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu3\">"
+    . "<li class=\"dropdown-header\">All items</li>"
+    . "<li id=\"all_all\" class=\"" . ClassEnum::Category_Click_Class . "\" onclick=\"navigate('".SessionNameEnum::FULL_PROD_CAT."',"
+                    . "'all items_all items','#".DivEnum::INDEX_DIV."','".DivEnum::MULTI_PRODUCT_DIV."')\"><a href='/lola/category_1.php'>"
+                    . "All items</a></li>";
     
     // Outputting results
     foreach($product_categories as $category)
@@ -87,16 +91,19 @@ function outputProductCategoriesToSideBar($product_categories)
     // Validating results
     if(count($product_categories) == 0 )
     {
-        echo "<li class=\"list-group-item-heading\"><a href=\"category.html\">No categories to show at the moment</a></li>";
+        echo "<li class=\"list-group-item-heading\"><a href=\"category_1.php\">No categories to show at the moment</a></li>";
         
         return;
     }
-    
+    echo "<ul class=\"list-group\"><li class=\"list-group-item-heading\"><a href=\"category_1.php\" >All items</a></li>"
+        . "<li id=\"all_all\" class=\"list-group-item " . ClassEnum::Category_Click_Class . "\" onclick=\"navigate('".SessionNameEnum::FULL_PROD_CAT."',"
+                    . "'all items_all items','#".DivEnum::INDEX_DIV."','".DivEnum::MULTI_PRODUCT_DIV."')\"><a href='/lola/category_1.php'>"
+                    . "All items</a></li>";
     // Outputting results
     foreach($product_categories as $category)
     {       
         // Echo category
-        echo "<ul class=\"list-group\"><li class=\"list-group-item-heading\"><a href=\"category.html\" >" . ucfirst($category["category"]) . "</a></li>";
+        echo "<ul class=\"list-group\"><li class=\"list-group-item-heading\"><a href=\"category_1.php\" >" . ucfirst($category["category"]) . "</a></li>";
         
         $sub_categories = fetch_product_sub_categories($category["category"]);
 
@@ -154,13 +161,26 @@ function fetch_product_data($fullCategory)
     $category= explode("_", $fullCategory);
     
     // To be changed later
-    $conn = connect("127.0.0.1", "root", "", "lolas_room");
+    $conn = connect("127.0.0.1", "root", "", "lolas_room");    
    
     // Query
+    if($category[0] == "all items")
+    {
+       $result = mysqli_query($conn,"SELECT s.id, s.product_name, s.price, s.main_image FROM stock_item s
+        JOIN product_sub_category c ON s.product_sub_category_id = c.id
+        JOIN product_category p ON c.product_category_id = p.id
+        WHERE s.stock_level >= 1 AND s.is_active=1;");
+       
+    } else{
+        
     $result = mysqli_query($conn,"SELECT s.id, s.product_name, s.price, s.main_image FROM stock_item s
         JOIN product_sub_category c ON s.product_sub_category_id = c.id
         JOIN product_category p ON c.product_category_id = p.id
-        WHERE p.category =\"" . $category[0] . "\" AND c.sub_cat_name=\"" . $category[1] . "\";");
+        WHERE p.category =\"" . $category[0] . "\" AND c.sub_cat_name=\"" . $category[1] . "\"
+        AND s.stock_level >= 1 AND s.is_active=1;");
+    }
+    
+    
     
     if(mysqli_num_rows($result) > 0)
     {
@@ -227,5 +247,17 @@ function fetch_single_product_images($singleProductId)
     mysqli_close($conn);
 }
 
-
+/**
+ * This function may be used to get the number
+ * of pages required for the selected category
+ * for pagination purposes
+ * 
+ * @param type $product_data
+ */
+function getNumberOfPages($product_data, $divisibleBy)
+{
+    $count = ceil(count($product_data) / $divisibleBy);
+    
+    setSession(SessionNameEnum::PAGE_COUNT, $count);
+}
    

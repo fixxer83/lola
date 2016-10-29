@@ -2,6 +2,8 @@
 
 include_once (__DIR__ . '\ProductFetcher.php');
 
+include_once (__DIR__ . '\..\session\SetSession.php');
+
 /**
  * This method may be used to output the
  * product data in the product
@@ -14,13 +16,13 @@ function outputProductData($fullProductCategory)
 {
     
     $product_data = fetch_product_data($fullProductCategory);
-    
+        
     // Validating results
-    if(count($product_data) == 0 )
+    if(count($product_data) == 0)
     {
         echo "Error encountered";
         
-        return;
+        return 0;
     }
     
     // Outputting results
@@ -34,12 +36,12 @@ function outputProductData($fullProductCategory)
             . "<img src=\"img/product_images/" . $data["main_image"] . "\" alt=\"product image\" class=\"img-responsive\">"
             . "</a>"
             . "<div class=\"text\">"
-            ."<h3><a href=\"#\" onclick=\"initiateSessionAndSetDivs('" . SessionNameEnum::SINGLE_PROD_NUM . "', ". $data["id"] . ", '#" . DivEnum::MULTI_PRODUCT_DIV . "',"
+            ."<h3><a href=\"/lola/detail_1.php\" onclick=\"navigate('" . SessionNameEnum::SINGLE_PROD_NUM . "', ". $data["id"] . ", '#" . DivEnum::MULTI_PRODUCT_DIV . "',"
                 . "'" . DivEnum::SINGLE_PRODUCT_DIV .  "' )\">" . ucfirst($data["product_name"]) . "</a></h3>"
             . "<p class=\"price\">€ " . $data["price"] . "</p>"
             . "<p class=\"buttons\">"
             ."<div class=\"btn-group\" role=\"group\" aria-label=\"Test\">"
-            . "<a href=\"#\" onclick=\"initiateSessionAndSetDivs('" . SessionNameEnum::SINGLE_PROD_NUM . "', ". $data["id"] . ", '#" . DivEnum::MULTI_PRODUCT_DIV . "',"
+            . "<a href=\"/lola/detail_1.php\" onclick=\"navigate('" . SessionNameEnum::SINGLE_PROD_NUM . "', ". $data["id"] . ", '#" . DivEnum::MULTI_PRODUCT_DIV . "',"
                 . "'" . DivEnum::SINGLE_PRODUCT_DIV .  "' )\" class=\"btn btn-default\">View detail</a><a href=\"basket.html\" class=\"btn btn-primary\">"
             . "<i class=\"fa fa-shopping-cart\"></i></a>"
             . "</div></p>";
@@ -49,6 +51,42 @@ function outputProductData($fullProductCategory)
             . "</div>"
             . "</div>";   
     }
+    
+    return $product_data;
+}
+
+/**
+ * 
+ * @param type $count
+ * @return type
+ */
+function outputNumberOfPages($count)
+{
+    echo"<ul class=\"pagination\">"
+    . "<li><a href=\"#\">«</a></li>";
+    
+    if($count <=1)
+    {
+        echo "<li class=\"active\"><a href=\"#\">1</a></li>"
+        ."</ul>";
+        
+        return;
+    }
+    
+    for($i=1; $i<=$count; $i++)
+    {
+        if($i == 1)
+        {
+            echo "<li class=\"active\"><a href=\"#\">" . $i . "</a></li>";
+        }
+        else
+        {
+           echo "<li><a href=\"#\">" . $i . "</a></li>"; 
+        }
+        
+    }
+    echo "<li><a href=\"#\">»</a></li>"
+        ."</ul>";    
 }
 
 function outputSingleProductDetails($id)
@@ -81,7 +119,7 @@ function outputSingleProductDetails($id)
         . "<p class=\"price\">€ " . $data["price"] . "</p>"
         . "<p class=\"buttons\">"
         . "<div class=\"btn-group\" role=\"group\" aria-label=\"Test\">"
-        . "<a href=\"#\" onclick=\"initiateSessionAndSetDivs('".SessionNameEnum::FULL_PROD_CAT."',"
+        . "<a href=\"category_1.php\" onclick=\"navigate('".SessionNameEnum::FULL_PROD_CAT."',"
                     . "'".$_SESSION['full_product_category']."','#".DivEnum::SINGLE_PRODUCT_DIV."','".DivEnum::MULTI_PRODUCT_DIV."')\" class=\"btn btn-default\">Back</a><a href=\"basket.html\" class=\"btn btn-primary\">"
         . "<i class=\"fa fa-shopping-cart\"></i></a>"
         . "</div>"

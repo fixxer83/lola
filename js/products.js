@@ -122,7 +122,7 @@ function initAndDestroySessionAndReload(sessionToSetName, sessionTitle, sessionT
 
 function navigate(sessionToSetName, sessionValue, sessionToDestroy, divToShow, classToLoad)
 {
-    loadNavBar();
+   // loadNavBar();
     
     $.ajax
     ({
@@ -142,11 +142,11 @@ function loadNavBar()
 {
     $.ajax
     ({
-        url:"./index.php",
-        type:'GET',
+        url:"../index.php",
+        type:"GET",
         success: function(data){
             //alert(data);
-            $('#prelim_stuff').load('index.php #nav_div');
+            $("#prelim_stuff").load("index.php #nav_div");
         }
     });
     

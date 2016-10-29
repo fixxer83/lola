@@ -37,22 +37,21 @@ session_start();
     
     <div class="prelim_stuff" id="prelim_stuff">
         <!-- This section will be used to load the navbar and categories sidebar -->
-<!--        <script>
+        <script>
         $('#prelim_stuff').load('index.php #nav_div');
-        </script>-->
+        </script>
     </div>
     
-    <div class="col-md-3">
+    <div class="col-md-3" id="category_sidebar">
         <!-- *** MENUS AND FILTERS ***-->
         <div class="panel panel-default">
 
             <div class="panel-heading">
-                <h1 class="panel-title">Categories</h1>
+                <h3>Categories</h3>
             </div>
 
             <div class="panel-body">
                 <?php
-
                     outputProductCategoriesToSideBar(fetch_product_categories());
                 ?>
             </div>
@@ -93,21 +92,8 @@ session_start();
                                 <option>Price Ascending</option>
                                 <option>Name</option>
                                 <option>Newest</option>
-                            </select>
-                            
-                            <p class="loadMore">
-                            
-                            
-                        <div class="products-number">
-                            <a href="#" class="btn btn-default btn-sm btn-primary">12</a>
-                            <a href="#" class="btn btn-default btn-sm">24</a>  
-                            <a href="#" class="btn btn-default btn-sm">All</a>
-                            <strong>&nbsp;12</strong> of <strong>25</strong>
+                            </select>                           
                         </div>
-                        </p>
-                            
-                        </div>
-                        
                     </div>
 
                     <div class="row products">
@@ -115,35 +101,25 @@ session_start();
                         <?php
                             include './php/productData/MultiProductSummary.php';
                            
-                            $fullProductCategory = $_SESSION['full_product_category'];
+                            $fullProductCategory = $_SESSION[SessionNameEnum::FULL_PROD_CAT];
+                                                       
                             
-                            outputProductData($fullProductCategory);
+                            $product_data = outputProductData($fullProductCategory);
+                            
+                            // Getting the page count
+                            getNumberOfPages($product_data, 5);
                         ?>
                         
                     </div>
                     <!-- /.products -->
 
-                    <div class="pages">
-
-                        <ul class="pagination">
-                            <li><a href="#">&laquo;</a>
-                            </li>
-                            <li class="active"><a href="#">1</a>
-                            </li>
-                            <li><a href="#">2</a>
-                            </li>
-                            <li><a href="#">3</a>
-                            </li>
-                            <li><a href="#">4</a>
-                            </li>
-                            <li><a href="#">5</a>
-                            </li>
-                            <li><a href="#">&raquo;</a>
-                            </li>
-                        </ul>
+                    <div class="pages">        
+                        <?php
+                            $count = $_SESSION[SessionNameEnum::PAGE_COUNT];
+                            echo "<p>" . $count . "</p>";                            
+                            outputNumberOfPages($count);
+                        ?>
                     </div>
-
-
                 </div>
                 <!-- /.col-md-9 -->
             </div>
@@ -152,9 +128,17 @@ session_start();
         <!-- /#content -->
     </div>
     <!-- /#all -->
+    
+    <footer>
+        <div id="copyright">
+            <!-- *** COPYRIGHT *** -->
+        </div>
+        <script>
+            $('#copyright').load('index.php #copyright');
+        </script>
+    </footer>
 
-    <!-- *** SCRIPTS TO INCLUDE ***
- _________________________________________________________ -->
+    <!-- *** SCRIPTS TO INCLUDE *** -->
     <!--<script src="js/jquery-1.11.0.min.js"></script>-->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.cookie.js"></script>

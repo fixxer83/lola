@@ -8,7 +8,5 @@ abstract class SessionNameEnum
 {
     const FULL_PROD_CAT = "full_product_category";
     const SINGLE_PROD_NUM = "product_number";
-    
+    const PAGE_COUNT = "page_count";    
 }
-
-

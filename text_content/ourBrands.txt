@@ -1,0 +1,9 @@
+<div class="brand_images">
+    <a href="http://everearth.global/uk/"><img class="brands" src="./img/brands/ever_earth.png"></a>
+    <a href="http://mytimetoys.com/pages/fantasy-fields"><img class="brands" src="./img/brands/my_time_toys.png"></a>
+    <a href="http://www.petitedreams.eu/"><img class="brands" src="./img/brands/petite_dreams.png"></a>
+    <a href="http://primary-products.myshopify.com/pages/teamson-classic"><img  class="brands" src="./img/brands/primary_products.png"></a>
+    <a href="http://www.fantasyfields.com/"><img class="brands" src="./img/brands/fantasy_fields.png"></a>
+    <a href="http://www.en.teamson.com/"><img class="brands" src="./img/brands/teamson.png"></a>
+    <a href="#"><img class="brands" src="./img/brands/tots_cots.png"></a>
+</div>

@@ -10,17 +10,24 @@ include 'DestroySession.php';
  * @param array $session
  */
 function setSession($sessionHeaderName, $session)
-{        
+{  
     // Set session (if set)
-    if(isset($_SESSION[$sessionHeaderName]))
+    if ((session_id() == '') && !isset($_SESSION[$sessionHeaderName]))
+    {
+        startSession();
+    }
+    else if(!isset($_SESSION[$sessionHeaderName]))
     {
         // Start the session
-        session_start();
-    }
-    
-    // Start the session
-    session_start();
-    destroySession($sessionHeaderName);
+        startSession();
+    }    
         
-    $_SESSION[$sessionHeaderName] = $session;
+    //destroySession($sessionHeaderName);
+    
+    $_SESSION[$sessionHeaderName] = $session;    
+}
+
+function startSession()
+{
+    session_start();
 }
