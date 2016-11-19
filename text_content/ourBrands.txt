@@ -5,5 +5,4 @@
     <a href="http://primary-products.myshopify.com/pages/teamson-classic"><img  class="brands" src="./img/brands/primary_products.png"></a>
     <a href="http://www.fantasyfields.com/"><img class="brands" src="./img/brands/fantasy_fields.png"></a>
     <a href="http://www.en.teamson.com/"><img class="brands" src="./img/brands/teamson.png"></a>
-    <a href="#"><img class="brands" src="./img/brands/tots_cots.png"></a>
 </div>

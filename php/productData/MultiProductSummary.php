@@ -1,7 +1,7 @@
 <?php
 
 include_once (__DIR__ . '\ProductFetcher.php');
-
+include_once (__DIR__ . '\Paginator.php');
 include_once (__DIR__ . '\..\session\SetSession.php');
 
 /**
@@ -12,15 +12,15 @@ include_once (__DIR__ . '\..\session\SetSession.php');
  * @param type $fullProductCategory
  * @return type
  */
-function outputProductData($fullProductCategory)
+function outputProductData($fullProductCategory, $itemLimit)
 {
     
-    $product_data = fetch_product_data($fullProductCategory);
+    $product_data = fetch_product_data($fullProductCategory, $itemLimit);
         
     // Validating results
     if(count($product_data) == 0)
     {
-        echo "Error encountered";
+        echo "<h1>No items found</h1>";
         
         return 0;
     }
@@ -32,17 +32,17 @@ function outputProductData($fullProductCategory)
         echo "<div class=\"col-md-4 col-sm-6\"><div class=\"product\">";
         
         // Echo body
-        echo "<a href=\"detail_1.php\">"
+        echo "<a href=\"item-details.php\">"
             . "<img src=\"img/product_images/" . $data["main_image"] . "\" alt=\"product image\" class=\"img-responsive\">"
             . "</a>"
             . "<div class=\"text\">"
-            ."<h3><a href=\"/lola/detail_1.php\" onclick=\"navigate('" . SessionNameEnum::SINGLE_PROD_NUM . "', ". $data["id"] . ", '#" . DivEnum::MULTI_PRODUCT_DIV . "',"
+            ."<h3><a href=\"/lola/item-details.php\" onclick=\"navigate('" . SessionNameEnum::SINGLE_PROD_NUM . "', ". $data["id"] . ", '#" . DivEnum::MULTI_PRODUCT_DIV . "',"
                 . "'" . DivEnum::SINGLE_PRODUCT_DIV .  "' )\">" . ucfirst($data["product_name"]) . "</a></h3>"
             . "<p class=\"price\">€ " . $data["price"] . "</p>"
             . "<p class=\"buttons\">"
             ."<div class=\"btn-group\" role=\"group\" aria-label=\"Test\">"
-            . "<a href=\"/lola/detail_1.php\" onclick=\"navigate('" . SessionNameEnum::SINGLE_PROD_NUM . "', ". $data["id"] . ", '#" . DivEnum::MULTI_PRODUCT_DIV . "',"
-                . "'" . DivEnum::SINGLE_PRODUCT_DIV .  "' )\" class=\"btn btn-default\">View detail</a><a href=\"basket.html\" class=\"btn btn-primary\">"
+            . "<a href=\"/lola/item-details.php\" onclick=\"navigate('" . SessionNameEnum::SINGLE_PROD_NUM . "', ". $data["id"] . ", '#" . DivEnum::MULTI_PRODUCT_DIV . "',"
+                . "'" . DivEnum::SINGLE_PRODUCT_DIV .  "' )\" class=\"btn btn-default\">View detail</a><a href=\"#\" class=\"btn btn-primary\">"
             . "<i class=\"fa fa-shopping-cart\"></i></a>"
             . "</div></p>";
         
@@ -60,33 +60,34 @@ function outputProductData($fullProductCategory)
  * @param type $count
  * @return type
  */
-function outputNumberOfPages($count)
+function outputNumberPageNumbers($count)
 {
-    echo"<ul class=\"pagination\">"
-    . "<li><a href=\"#\">«</a></li>";
-    
     if($count <=1)
     {
-        echo "<li class=\"active\"><a href=\"#\">1</a></li>"
-        ."</ul>";
-        
-        return;
+        return null;
     }
+    
+    echo"<form name=\"pagination_form\">"
+    . "<ul class=\"pagination\">"
+    . "<li class=\"chevron_left\"><a href=\"#\"><i class=\"fa fa-chevron-left\" aria-hidden=\"true\"></i></a></li>";
     
     for($i=1; $i<=$count; $i++)
     {
-        if($i == 1)
+        if($i<=12)
         {
-            echo "<li class=\"active\"><a href=\"#\">" . $i . "</a></li>";
-        }
-        else
-        {
-           echo "<li><a href=\"#\">" . $i . "</a></li>"; 
+            if($i == 1)
+            {
+                echo "<li id=\"page" .$i . "\" class=\"page\"><a href=\"?page=" . $i . "\" onclick=\"setSession(\"page_number\", \"page_" . $i ."\">" . $i . "</a></li>";
+            }
+            else
+            {
+               echo "<li id=\"page" .$i . "\" class=\"page\"><a href=\"?page=" . $i . "\" onclick=\"setSession(\"page_number\", \"page_" . $i ."\">" . $i . "</a></li>"; 
+            }
         }
         
     }
-    echo "<li><a href=\"#\">»</a></li>"
-        ."</ul>";    
+    echo "<li class=\"chevron_right\"><a href=\"#\"><i class=\"fa fa-chevron-right\" aria-hidden=\"true\"></i></a></li>"
+        ."</ul></form>";    
 }
 
 function outputSingleProductDetails($id)
@@ -119,7 +120,7 @@ function outputSingleProductDetails($id)
         . "<p class=\"price\">€ " . $data["price"] . "</p>"
         . "<p class=\"buttons\">"
         . "<div class=\"btn-group\" role=\"group\" aria-label=\"Test\">"
-        . "<a href=\"category_1.php\" onclick=\"navigate('".SessionNameEnum::FULL_PROD_CAT."',"
+        . "<a href=\"products.php\" onclick=\"navigate('".SessionNameEnum::FULL_PROD_CAT."',"
                     . "'".$_SESSION['full_product_category']."','#".DivEnum::SINGLE_PRODUCT_DIV."','".DivEnum::MULTI_PRODUCT_DIV."')\" class=\"btn btn-default\">Back</a><a href=\"basket.html\" class=\"btn btn-primary\">"
         . "<i class=\"fa fa-shopping-cart\"></i></a>"
         . "</div>"
@@ -135,14 +136,20 @@ function outputSingleProductDetails($id)
         . "<p><h2 style=\"font-weight: bold;\">Product details</h2></p>"
         . "<p>" . ucfirst($data["product_description"]) . "</p><hr></div>"
         . "<div class=\"social\">"
-        . "<h4>Share this product</h4>"
-        . "<p>"
-        . "<a href=\"#\" class=\"external facebook\" data-animate-hover=\"pulse\"><i class=\"fa fa-facebook\"></i></a>"
-        . "<a href=\"#\" class=\"external gplus\" data-animate-hover=\"pulse\"><i class=\"fa fa-google-plus\"></i></a>"
-        . "<a href=\"#\" class=\"external twitter\" data-animate-hover=\"pulse\"><i class=\"fa fa-twitter\"></i></a>"
-        . "<a href=\"#\" class=\"email\" data-animate-hover=\"pulse\"><i class=\"fa fa-envelope\"></i></a>"
-        . "</p>"  
+//        . "<h4>Share this product</h4>"
+//       . "<p>"
+//        . "<a href=\"#\" class=\"external facebook\" data-animate-hover=\"pulse\"><i class=\"fa fa-facebook\"></i></a>"
+//        ."<div class=\"fb-share-button\" data-href=\"https://developers.facebook.com/docs/plugins/\" data-layout=\"button\" data-size=\"small\""
+//        . "data-mobile-iframe=\"true\"><a class=\"fb-xfbml-parse-ignore\" target=\"_blank\" "
+//        . "href=\"https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse\">Share</a></div>"
+//        . "<a href=\"#\" class=\"external gplus\" data-animate-hover=\"pulse\"><i class=\"fa fa-google-plus\"></i></a>"
+//        . "<a href=\"#\" class=\"external twitter\" data-animate-hover=\"pulse\"><i class=\"fa fa-twitter\"></i></a>"
+//        . "<a href=\"#\" class=\"email\" data-animate-hover=\"pulse\"><i class=\"fa fa-envelope\"></i></a>"
+//        . "</p>"  
         . "</div></div></div>";
+        
+//        <div class="fb-share-button" 
+//        data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div>
         
     }
 }

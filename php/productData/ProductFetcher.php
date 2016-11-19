@@ -4,6 +4,7 @@ include (__DIR__ . '\..\mysql\Connection.php');
 include (__DIR__ . '\..\enums\ClassEnum.php');
 include (__DIR__ . '\..\enums\SessionNameEnum.php');
 include (__DIR__ . '\..\enums\DivEnum.php');
+include_once (__DIR__ . '\Paginator.php');
 
 /**
  * 
@@ -53,7 +54,7 @@ function outputProductCategoriesToDropDown($product_categories)
     echo "<ul class=\"dropdown-menu\" aria-labelledby=\"dropdownMenu3\">"
     . "<li class=\"dropdown-header\">All items</li>"
     . "<li id=\"all_all\" class=\"" . ClassEnum::Category_Click_Class . "\" onclick=\"navigate('".SessionNameEnum::FULL_PROD_CAT."',"
-                    . "'all items_all items','#".DivEnum::INDEX_DIV."','".DivEnum::MULTI_PRODUCT_DIV."')\"><a href='/lola/category_1.php'>"
+                    . "'all items_all items', 'null')\"><a href='/lola/products.php?page=1'>"
                     . "All items</a></li>";
     
     // Outputting results
@@ -71,7 +72,7 @@ function outputProductCategoriesToDropDown($product_categories)
             
             // Echo sub category
             echo "<li id=\"" . $comp_id .  "\" class=\"" . ClassEnum::Category_Click_Class . "\" onclick=\"navigate('".SessionNameEnum::FULL_PROD_CAT."',"
-                    . "'".$comp_id."','#".DivEnum::INDEX_DIV."','".DivEnum::MULTI_PRODUCT_DIV."')\"><a href='/lola/category_1.php'>"
+                    . "'".$comp_id."', 'null')\"><a href='/lola/products.php?page=1'>"
                     . ucfirst($sub_category["sub_cat_name"]) . "</a></li>";
         }
     }
@@ -91,19 +92,19 @@ function outputProductCategoriesToSideBar($product_categories)
     // Validating results
     if(count($product_categories) == 0 )
     {
-        echo "<li class=\"list-group-item-heading\"><a href=\"category_1.php\">No categories to show at the moment</a></li>";
+        echo "<li class=\"list-group-item-heading\"><a href=\"products.php?page=1\">No categories to show at the moment</a></li>";
         
         return;
     }
-    echo "<ul class=\"list-group\"><li class=\"list-group-item-heading\"><a href=\"category_1.php\" >All items</a></li>"
+    echo "<ul class=\"list-group\"><li class=\"list-group-item-heading\"><span class=\"list_heading\">All items</span></li>"
         . "<li id=\"all_all\" class=\"list-group-item " . ClassEnum::Category_Click_Class . "\" onclick=\"navigate('".SessionNameEnum::FULL_PROD_CAT."',"
-                    . "'all items_all items','#".DivEnum::INDEX_DIV."','".DivEnum::MULTI_PRODUCT_DIV."')\"><a href='/lola/category_1.php'>"
-                    . "All items</a></li>";
+                    . "'all items_all items', 'null')\"><a href='/lola/products.php?page=1'>"
+                    . "All items</a></li></ul>";
     // Outputting results
     foreach($product_categories as $category)
     {       
         // Echo category
-        echo "<ul class=\"list-group\"><li class=\"list-group-item-heading\"><a href=\"category_1.php\" >" . ucfirst($category["category"]) . "</a></li>";
+        echo "<ul class=\"list-group\"><li class=\"list-group-item-heading\"><span class=\"list_heading\">" . ucfirst($category["category"]) . "</span></li>";
         
         $sub_categories = fetch_product_sub_categories($category["category"]);
 
@@ -114,7 +115,7 @@ function outputProductCategoriesToSideBar($product_categories)
             
             // Echo sub category
             echo "<li class=\"list-group-item " . ClassEnum::Category_Click_Class ."\" id=\"" . $comp_id . "\" onclick=\"navigate('".SessionNameEnum::FULL_PROD_CAT."',"
-                    . "'".$comp_id."','#".DivEnum::INDEX_DIV."','".DivEnum::MULTI_PRODUCT_DIV."')\"><a href='/lola/category_1.php'>" . ucfirst($sub_category["sub_cat_name"]) . "</a></li>";
+                    . "'".$comp_id."', 'null')\"><a href='/lola/products.php?page=1'>" . ucfirst($sub_category["sub_cat_name"]) . "</a></li>";
         }
         
         echo "</ul>";
@@ -128,22 +129,124 @@ function outputProductCategoriesToSideBar($product_categories)
  */
 function fetch_product_sub_categories($category)
 {
-    
     // To be changed later
-    $conn = connect("127.0.0.1", "root", "", "lolas_room");
+    $conn = connect();
+    
+    // Validate connection
+    if ($conn->connect_error)
+    {
+        die("Connection failed: " . $conn->connect_error);
+    }
    
     // Query
-    $result = mysqli_query($conn,"Select s.id, s.sub_cat_name, s.product_category_id From product_sub_category s
-                                  Join product_category c
-                                  On s.product_category_id = c.id
-                                  Where s.is_enabled=1 AND c.is_enabled=1 AND c.category=\"" .$category . "\" Order by s.product_category_id");
+    $query = "Select s.id, s.sub_cat_name, s.product_category_id From product_sub_category s
+             Join product_category c
+             On s.product_category_id = c.id
+             Where s.is_enabled=1 AND c.is_enabled=1 AND c.category = ? Order by s.product_category_id";
     
+    // Prepare
+    $stmt = $conn->stmt_init();
+    $stmt->prepare($query);
+    
+    if($stmt === false) 
+    {
+        trigger_error('Wrong SQL: ' . $query . ' Error: ' . $conn->errno . ' ' . $conn->error, E_USER_ERROR);
+    }
+    
+    // Bind params
+    $stmt->bind_param("s", $category);
+    $result;
+    
+    if($stmt->execute())
+    {
+       $result = $stmt->get_result();
+       $result->fetch_array(MYSQLI_ASSOC);
+    }
+    else
+    {
+        return;
+    }
+    
+    // Cleanup
+    // Kill connection
+    $stmt->close();
+    mysqli_close($conn);
+    
+    return $result;
+}
+
+/**
+ * 
+ * @param type $fullCategory
+ * @return type
+ */
+function fetch_product_data($fullCategory, $itemLimitPerPage)
+{
+    $category= explode("_", $fullCategory);
+    $searchTerm = explode(" : ", $category[1]);
+    $count = 0;
+    
+    if(sizeof($searchTerm) > 1)
+    {
+        // Getting page count and setting its session
+        $count = countRecords($category, $searchTerm[1]);  
+    }
+    else
+    {
+        // Getting page count and setting its session
+        $count = countRecords($category, NULL); 
+    }
+    
+    getNumberOfPagesAndSetSession($count["total"], $itemLimitPerPage);
+    
+    // To be changed later
+    $conn = connect("127.0.0.1", "root", "", "lolas_room");  
+    
+    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+      
+    $start = ($page > 1) ? ($page * $itemLimitPerPage) - $itemLimitPerPage : 0;
+    
+    // Query
+    if(($category[0] == "all items") && (sizeof($searchTerm) > 1))
+    {
+        $result = mysqli_query($conn,"SELECT s.id, s.product_name, s.price, s.main_image FROM stock_item s
+        JOIN product_sub_category c ON s.product_sub_category_id = c.id
+        JOIN product_category p ON c.product_category_id = p.id
+        WHERE s.stock_level >= 1 AND s.is_active=1 AND s.product_name LIKE '%" . $searchTerm[1] . "%'
+        LIMIT {$start},{$itemLimitPerPage};");
+        
+    }
+    else if($category[0] == "all items")
+    {
+       $result = mysqli_query($conn,"SELECT s.id, s.product_name, s.price, s.main_image FROM stock_item s
+        JOIN product_sub_category c ON s.product_sub_category_id = c.id
+        JOIN product_category p ON c.product_category_id = p.id
+        WHERE s.stock_level >= 1 AND s.is_active=1
+        LIMIT {$start},{$itemLimitPerPage};");
+       
+    } else{
+        
+    $result = mysqli_query($conn,"SELECT s.id, s.product_name, s.price, s.main_image FROM stock_item s
+        JOIN product_sub_category c ON s.product_sub_category_id = c.id
+        JOIN product_category p ON c.product_category_id = p.id
+        WHERE p.category =\"" . $category[0] . "\" AND c.sub_cat_name=\"" . $category[1] . "\"
+        AND s.stock_level >= 1 AND s.is_active=1
+        LIMIT {$start},{$itemLimitPerPage};");
+    }
+
     if(mysqli_num_rows($result) > 0)
     {
         // Kill connection
         mysqli_close($conn);
         
        return mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+    else
+    {
+       // Kill connection
+        mysqli_close($conn);
+        
+       return; 
     }
     
     // Cleanup
@@ -153,46 +256,46 @@ function fetch_product_sub_categories($category)
 
 /**
  * 
- * @param type $fullCategory
+ * @param type $category
  * @return type
  */
-function fetch_product_data($fullCategory)
+function countRecords($category, $searchTerm)
 {
-    $category= explode("_", $fullCategory);
-    
     // To be changed later
-    $conn = connect("127.0.0.1", "root", "", "lolas_room");    
-   
+    $conn = connect("127.0.0.1", "root", "", "lolas_room"); 
+    
     // Query
-    if($category[0] == "all items")
+    if(($category[0] == "all items") && ($searchTerm != NULL))
     {
-       $result = mysqli_query($conn,"SELECT s.id, s.product_name, s.price, s.main_image FROM stock_item s
+        $result = mysqli_query($conn,"SELECT COUNT(s.id) AS total FROM stock_item s
         JOIN product_sub_category c ON s.product_sub_category_id = c.id
         JOIN product_category p ON c.product_category_id = p.id
-        WHERE s.stock_level >= 1 AND s.is_active=1;");
+        WHERE s.stock_level >= 1 AND s.is_active=1 AND s.product_name LIKE '%" . $searchTerm . "%';");
+        
+    }
+    else if($category[0] == "all items")
+    {
+       $result = mysqli_query($conn,"SELECT COUNT(s.id) AS total FROM stock_item s
+        JOIN product_sub_category c ON s.product_sub_category_id = c.id
+        JOIN product_category p ON c.product_category_id = p.id
+        WHERE s.stock_level >= 1 AND s.is_active=1");
        
     } else{
         
-    $result = mysqli_query($conn,"SELECT s.id, s.product_name, s.price, s.main_image FROM stock_item s
+    $result = mysqli_query($conn,"SELECT COUNT(s.id) AS total FROM stock_item s
         JOIN product_sub_category c ON s.product_sub_category_id = c.id
         JOIN product_category p ON c.product_category_id = p.id
         WHERE p.category =\"" . $category[0] . "\" AND c.sub_cat_name=\"" . $category[1] . "\"
         AND s.stock_level >= 1 AND s.is_active=1;");
     }
     
-    
-    
-    if(mysqli_num_rows($result) > 0)
-    {
-        // Kill connection
-        mysqli_close($conn);
-        
-       return mysqli_fetch_all($result, MYSQLI_ASSOC);
-    }
-    
+    $count = mysqli_fetch_assoc($result);
+
     // Cleanup
     mysqli_free_result($result);
     mysqli_close($conn);
+    
+    return $count;  
 }
 
 /**
@@ -201,24 +304,48 @@ function fetch_product_data($fullCategory)
  * @return type
  */
 function fetch_single_product_details($singleProductId)
-{    
+{
+    
     // To be changed later
-    $conn = connect("127.0.0.1", "root", "", "lolas_room");
+    $conn = connect();
+    
+    // Validate connection
+    if ($conn->connect_error)
+    {
+        die("Connection failed: " . $conn->connect_error);
+    }
    
     // Query
-    $result = mysqli_query($conn,"SELECT * FROM stock_item WHERE id=\"" . $singleProductId . "\";");
+    $query = "SELECT * FROM stock_item WHERE id=?;";
+    // Prepare
+    $stmt = $conn->stmt_init();
+    $stmt->prepare($query);
     
-    if(mysqli_num_rows($result) > 0)
+    if($stmt === false) 
     {
-        // Kill connection
-        mysqli_close($conn);
-        
-       return mysqli_fetch_all($result, MYSQLI_ASSOC);
+        trigger_error('Wrong SQL: ' . $query . ' Error: ' . $conn->errno . ' ' . $conn->error, E_USER_ERROR);
+    }
+    
+    // Bind params
+    $stmt->bind_param("i", $singleProductId);
+    $result;
+    
+    if($stmt->execute())
+    {
+       $result = $stmt->get_result();
+       $result->fetch_array(MYSQLI_ASSOC);
+    }
+    else
+    {
+        return;
     }
     
     // Cleanup
-    mysqli_free_result($result);
+    // Kill connection
+    $stmt->close();
     mysqli_close($conn);
+    
+    return $result;
 }
 
 /**
@@ -227,37 +354,45 @@ function fetch_single_product_details($singleProductId)
  * @return type
  */
 function fetch_single_product_images($singleProductId)
-{    
+{        
     // To be changed later
-    $conn = connect("127.0.0.1", "root", "", "lolas_room");
+    $conn = connect();
+    
+    // Validate connection
+    if ($conn->connect_error)
+    {
+        die("Connection failed: " . $conn->connect_error);
+    }
    
     // Query
-    $result = mysqli_query($conn,"SELECT * FROM stock_item_image WHERE stock_item_id=\"" . $singleProductId . "\";");
+    $query = "SELECT * FROM stock_item_image WHERE stock_item_id=?;";
+    // Prepare
+    $stmt = $conn->stmt_init();
+    $stmt->prepare($query);
     
-    if(mysqli_num_rows($result) > 0)
+    if($stmt === false) 
     {
-        // Kill connection
-        mysqli_close($conn);
-        
-       return mysqli_fetch_all($result, MYSQLI_ASSOC);
+        trigger_error('Wrong SQL: ' . $query . ' Error: ' . $conn->errno . ' ' . $conn->error, E_USER_ERROR);
+    }
+    
+    // Bind params
+    $stmt->bind_param("i", $singleProductId);
+    $result;
+    
+    if($stmt->execute())
+    {
+       $result = $stmt->get_result();
+       $result->fetch_array(MYSQLI_ASSOC);
+    }
+    else
+    {
+        return;
     }
     
     // Cleanup
-    mysqli_free_result($result);
+    // Kill connection
+    $stmt->close();
     mysqli_close($conn);
-}
-
-/**
- * This function may be used to get the number
- * of pages required for the selected category
- * for pagination purposes
- * 
- * @param type $product_data
- */
-function getNumberOfPages($product_data, $divisibleBy)
-{
-    $count = ceil(count($product_data) / $divisibleBy);
     
-    setSession(SessionNameEnum::PAGE_COUNT, $count);
+    return $result;
 }
-   

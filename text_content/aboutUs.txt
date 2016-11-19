@@ -1,12 +1,17 @@
 <img src="./img/lola_upd.png" class="img_wrap">
 <p class="text-justify">
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras bibendum ex a ligula hendrerit tempus. Suspendisse ut diam vel lectus feugiat rutrum. Vivamus vehicula accumsan volutpat. Nunc facilisis urna efficitur imperdiet posuere. Integer consequat porttitor dui, quis pretium libero fringilla sed. Nullam et ipsum non quam ultrices blandit. Vivamus bibendum tincidunt odio sed semper. Nunc eu porta justo, et vestibulum sapien. Nam et mauris malesuada, maximus mauris et, maximus augue.
+
+Lola's Rooms... Growing minds.<br>
+
 <p class="text-justify">
-In venenatis magna id mollis consequat. Pellentesque ultricies, nisl eget scelerisque lobortis, lectus dui luctus neque, a blandit nisi arcu ac libero. Aliquam vel leo sapien. Vivamus nisl risus, cursus eget dui a, sodales varius elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada felis id tortor mollis, vel consectetur orci elementum. Donec ultrices turpis ullamcorper, tristique mauris sed, efficitur turpis. Suspendisse potenti. Pellentesque varius vehicula vehicula. Sed tristique nulla eu enim rutrum cursus. Praesent sit amet sapien eu neque condimentum hendrerit. Duis vulputate arcu pellentesque, molestie leo tempus, elementum metus. Ut malesuada est in aliquam imperdiet. Fusce feugiat mollis dui quis gravida.
+Lola's Rooms was created by Fiona and Diane, two mums, who take pride in the items they choose for their shop. 
+</p>
+
 <p class="text-justify">
-Nullam sed pharetra arcu. Maecenas ut dictum leo. Integer nec blandit nisi, at fringilla nisi. Mauris eu justo vitae massa hendrerit laoreet sit amet sit amet risus. Morbi nec est quis est rutrum laoreet. Aliquam id mauris augue. Cras nec nulla dui. Integer non nibh imperdiet, maximus diam eu, faucibus massa.
-<p class="text-justify">
-Morbi sed imperdiet augue. Nulla porta vel ante sed molestie. Suspendisse metus ligula, egestas sit amet dignissim et, tempor at sapien. Donec vel eros in eros hendrerit eleifend sed non velit. Nullam at felis sed lacus venenatis blandit. Duis sit amet mollis risus. Nunc hendrerit eleifend turpis, non tincidunt nibh sagittis placerat. Nunc volutpat ipsum a condimentum posuere. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin eget varius odio. Aliquam tincidunt vel libero eu posuere. Suspendisse vel erat risus. Nam at convallis nisi. Quisque faucibus, eros et maximus tristique, ante dolor tristique nisl, suscipit facilisis est mi vel sem. Vestibulum nec justo id nunc dapibus accumsan. Ut vel pellentesque orci.
-<p class="text-justify">
-Nulla bibendum velit non nisl ultrices euismod eget id ex. Nunc pulvinar ut odio et euismod. Aenean magna libero, accumsan in ultricies at, tempus id nunc. Nullam ante nibh, luctus volutpat nulla a, bibendum hendrerit lectus. Suspendisse et feugiat mi. Suspendisse vel fringilla libero. Quisque eget erat nisl. Ut pharetra pretium mauris vel sagittis. Integer ipsum dui, feugiat nec mollis vitae, lobortis et sem. Vivamus laoreet tristique tincidunt. Aliquam sit amet scelerisque nibh. Donec mollis dolor eros, dapibus aliquet dui maximus mollis. Cras velit nisi, interdum vel arcu pulvinar, iaculis fringilla purus. Maecenas sodales placerat ligula ac fermentum.
-</p></p></p></p></p>
+Quality, design and functionality are the three main components we look into, when choosing our products. We believe children have a unique character and personality, which like seeds needs to be nourished to grow, into  strong, intelligent and creative human beings. Nurturing your little ones in becoming visionaries is our main goal. 
+Ranging from colourful accessories, to wooden toys that pass the test of time, Lola brings to you only the best brands for your little ones.  High quality products that are bright and colourful and which will brighten up your days, turning your play rooms into cosy homes and colourful playgrounds.
+</p>
+
+
+</p>
+

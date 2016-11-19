@@ -14,3 +14,14 @@ function displayProductDiv()
 {
     document.getElementById('product_content').style.display = "block";
 }
+
+function changePageMarker(id)
+{
+    var actToInact = document.getElementsByClassName("active")
+    actToInact.className += "inactive";
+    
+    var inactToact = document.getElementById(id);
+    inactToact.className += "inactive";
+    
+    echo(id);
+}

@@ -2,9 +2,20 @@
 body {
     
 /*    background-image: url("../img/bck/jns.png");*/
-background-color: #ffffff;
-background-image: url("https://www.transparenttextures.com/patterns/gray-floral.png");
-/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+    /*background-color: #ffffff;*/
+/*background-image: url("https://www.transparenttextures.com/patterns/gray-floral.png");*/
+    background-image: url("../img/bck/xmas003.png");
+    
+
+}
+
+body {
+    opacity: 1;
+    transition: 1s linear;
+}
+body.fade-out {
+    opacity: 0;
+    transition: 2s ease-in-out;
 }
 
 #main {
@@ -22,8 +33,16 @@ background-image: url("https://www.transparenttextures.com/patterns/gray-floral.
     z-index: -1;
 }
 
-.hoverable:hover {
+.hoverable:hover
+{
     background-color: #8dcfc6;
+}
+
+.list_heading
+{
+/*    font-family: "Roboto", Helvetica, Arial, sans-serif;
+    color: #555555;
+    padding-left: 5px;   */
 }
 
 li>a
@@ -108,4 +127,29 @@ h3
 {
     vertical-align: middle;
     width: 27%;   
+}
+
+/*Hide Sidebar when displaying in mobile*/
+@media screen and (max-width: 600px) {
+    #category_sidebar {
+      visibility: hidden;
+      clear: both;
+      float: left;
+      margin: 10px auto 5px 20px;
+      width: 28%;
+      display: none;
+    }
+    .visible-xs
+    {
+        width: 125%;
+    }
+    #content .product
+    {
+        width: 85%;
+        text-align: center;
+    }
+    .row
+    {
+        text-align: center;
+    }
 }

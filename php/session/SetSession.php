@@ -12,18 +12,16 @@ include 'DestroySession.php';
 function setSession($sessionHeaderName, $session)
 {  
     // Set session (if set)
-    if ((session_id() == '') && !isset($_SESSION[$sessionHeaderName]))
+    if ((session_id() == ''))
     {
         startSession();
     }
-    else if(!isset($_SESSION[$sessionHeaderName]))
+    else if(!isset($_SESSION))
     {
         // Start the session
         startSession();
     }    
-        
-    //destroySession($sessionHeaderName);
-    
+            
     $_SESSION[$sessionHeaderName] = $session;    
 }
 

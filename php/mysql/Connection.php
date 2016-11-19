@@ -9,10 +9,15 @@
  * @param type $db
  * 
  */
-function connect($host, $username, $password, $db)
+function connect()
 {
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "lolas_room";
+    
     // Create new connection
-    $conn = mysqli_connect($host, $username, $password, $db);
+    $conn = mysqli_connect($servername, $username, $password, $dbname);
     
     // Connect
     if(mysqli_connect_errno())

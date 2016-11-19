@@ -120,24 +120,47 @@ function initAndDestroySessionAndReload(sessionToSetName, sessionTitle, sessionT
     });     
 }
 
-function navigate(sessionToSetName, sessionValue, sessionToDestroy, divToShow, classToLoad)
-{
-   // loadNavBar();
-    
+function navigate(sessionToSetName, sessionValue, searchTerm)
+{ 
     $.ajax
     ({
         type: "POST",
         url: "php/navigation/MainPagesNavigation.php",
         data: ({sessionHeaderName: sessionToSetName, sessionValue: sessionValue}),
         cache: false,
-        async: true,
+        async: false,
         success: function(response)
                 {
                     console.log(response);
+                    console.log(sessionToSetName + " : " + sessionValue);
                 }
     });     
 }
 
+function searchAndNavigate(sessionToSetName, sessionValue, searchTerm)
+{
+    
+    $.ajax
+    ({
+        type: "POST",
+        url: "php/navigation/MainPagesNavigation.php",
+        data: ({sessionHeaderName: sessionToSetName, sessionValue: sessionValue + " : " + searchTerm }),
+        cache: false,
+        async: true,
+        success: function(response)
+                {
+                    console.log(response);
+                    window.location.href = "products.php";
+                }
+    });     
+}
+
+/**
+ * This methd may be used to load
+ * the nav-bar in another page
+ * 
+ * @returns {undefined}
+ */
 function loadNavBar()
 {
     $.ajax
@@ -145,9 +168,28 @@ function loadNavBar()
         url:"../index.php",
         type:"GET",
         success: function(data){
-            //alert(data);
             $("#prelim_stuff").load("index.php #nav_div");
         }
     });
     
+}
+
+//function setActivePage(id)
+//{
+////    document.getElementsByClassName("active").
+//
+//    alert(id);
+//    
+//    //document.getElementById("#"+id).className = "active";
+//}
+
+/**
+ * This method may be used to get search term from the 
+ * #nav_search_text_field and redirect the user to the 
+ * product listing
+ */
+function clickAndSearch()
+{
+    var searchValue = $("#nav_search_txt_field").val();
+    searchAndNavigate("full_product_category", "all items_all items", searchValue);                   
 }

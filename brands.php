@@ -5,6 +5,8 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
+      <title>Lola's Room</title>
+      <link rel="icon" href="img/lola_upd.png">
       <meta charset="utf-8">
       <meta name="robots" content="all,follow">
       <meta name="googlebot" content="index,follow,snippet,archive">
@@ -27,7 +29,14 @@
       <script src="js/products.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
    </head>
-   <body>
+   <body class="fade-out">
+        <!-- Animate -->
+        <script>           
+            $(function() {
+                $('body').removeClass('fade-out');
+            });
+        </script>
+        
       <div class="prelim_stuff" id="prelim_stuff">
          <!-- This section will be used to load the navbar and categories sidebar -->
          <script>
