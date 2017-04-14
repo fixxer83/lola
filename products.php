@@ -15,7 +15,7 @@
         <meta name="keywords" content="">
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100' rel='stylesheet' type='text/css'>
         <!-- styles -->
-        <link href="css/font-awesome.css" rel="stylesheet">
+        <link href="./css/font-awesome.css" rel="stylesheet">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/animate.min.css" rel="stylesheet">
         <link href="css/owl.carousel.css" rel="stylesheet">
@@ -28,7 +28,7 @@
         <!-- Updates -->
         <script src="js/products.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script>document.body.className += ' fade-out';</script>
+        <!--<script>document.body.className += ' fade-out';</script>-->
     </head>
       <body class="fade-out">
         <!-- Animate -->
@@ -95,7 +95,7 @@
                                     </select>
                                 </div>-->
                             </div>
-                            <div class="row products">
+                            <div class="row_products">
                                 <?php
                                     include './php/productData/MultiProductSummary.php';
 
@@ -121,13 +121,18 @@
 
                                         var pageNum = location.search.replace("=", "").replace("?", "");
 
-//                                        if(pageNum == "")
-//                                        {
-//                                            pageNum = "page1";
-//                                            location.search = "?page=1";
-//                                        }
-
-                                        document.getElementById(pageNum).className="active";    
+                                        if(pageNum == "")
+                                        {
+                                            pageNum = "page1";
+                                            location.search = "?page=1";
+                                        }
+                                        
+                                        var currentPageCount = <?php echo $_SESSION[SessionNameEnum::PAGE_COUNT] ?>;
+                                        
+                                        if(currentPageCount > 1)
+                                        {
+                                            document.getElementById(pageNum).className="active";    
+                                        }
                                     };
 
 

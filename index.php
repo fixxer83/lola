@@ -1,19 +1,21 @@
 <?php 
-    include_once './php/productData/ProductFetcher.php';
-    session_start(); 
-    ?>
+include_once './php/productData/ProductFetcher.php';
+session_start(); 
+?>
 <!DOCTYPE html>
 <html lang="en">
+    <meta charset="utf-8">
+    <title>Lola's Rooms</title>
     <head>
-        <title>Lola's Room</title>
         <link rel="icon" href="img/lola_upd.png">
-        <meta charset="utf-8">
         <meta name="robots" content="all,follow">
         <meta name="googlebot" content="index,follow,snippet,archive">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100' rel='stylesheet' type='text/css'>
         <!-- styles -->
-        <link href="css/font-awesome.css" rel="stylesheet">
+        <link href="css/custom.css" rel="stylesheet">
+        <!--<link href="css/font-awesomeOLD.css" rel="stylesheet">-->
+        <link href="./css/font-awesome.css" rel="stylesheet">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/animate.min.css" rel="stylesheet">
         <link href="css/owl.carousel.css" rel="stylesheet">
@@ -21,7 +23,6 @@
         <!-- theme stylesheet -->
         <link href="css/style.default.css" rel="stylesheet" id="theme-stylesheet">
         <!-- updates -->
-        <link href="css/custom.css" rel="stylesheet">
         <link rel="shortcut icon" href="img/lola_upd.png">
         <script 
             src="https://code.jquery.com/jquery-1.12.4.js"
@@ -79,6 +80,9 @@
                                 <li id="li_nav_item" class="hoverable">
                                     <a href="./brands.php">Our Brands</a>
                                 </li>
+                                <li id="li_nav_item" class="hoverable">
+                                    <a href="./contact-us.php">Contact Us</a>
+                                </li>
                             </ul>
                         </div>
                         <!--nav-collapse -->
@@ -107,20 +111,11 @@
                         </div>
                     </div>
             </nav>
-            <script>
+            <script type="text/javascript">
                 $(".nav a").on("click", function(e){
                     $(".nav").find(".active").removeClass("active");
                     $(this).parent().addClass("active");
                 });
-                
-                //                    $("#li_nav_item").click(function(){
-                //                        alert($(this).attr("class"));
-                //                    
-                //                        $(this).switchClass( "hoverable", "active", 1000, "easeInOutQuad" );
-                //                    
-                //                     alert($(this).attr("class"));
-                ////                    document.getElementById(pageNum).className="active";    
-                //                    });
             </script>
             </div>
             <!-- nav end -->                
@@ -128,67 +123,39 @@
             <div class="page_content" id="page_content">
                 <div id="hide">
                     <div id="carousel_content">
-                        <div class="container">
-                            <div class="col-md-12">
-                                <div id="main-slider">
-                                    <div class="item">
-                                        <img class="img-responsive" src="img/slider_items/wide/img001.png" alt="toys" style="width: 100%; height: 550px; padding: 20px;">
+                        <!-- Carousel -->
+                        <div class="bs-example">
+                            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                <!-- Wrapper for carousel items -->
+                                <div class="carousel-inner">
+                                    <div class="item active">
+                                        <img id="carousel_img" src="img/slider_items/toy001.jpg" alt="First Slide">
                                     </div>
                                     <div class="item">
-                                        <img class="img-responsive" src="img/slider_items/wide/img002.png" alt="toys" style="width: 100%; height: 550px; padding: 20px;">
+                                        <img id="carousel_img" src="img/slider_items/toy002.jpg" alt="Second Slide">
                                     </div>
                                     <div class="item">
-                                        <img class="img-responsive" src="img/slider_items/wide/img003.png" alt="toys" style="width: 100%; height: 550px; padding: 20px;">
+                                        <img id="carousel_img" src="img/slider_items/toy003.jpg" alt="Third Slide">
                                     </div>
                                     <div class="item">
-                                        <img class="img-responsive" src="img/slider_items/wide/img004.png" alt="toys" style="width: 100%; height: 550px; padding: 20px;">
-                                    </div>
-                                    <div class="item">
-                                        <img class="img-responsive" src="img/slider_items/wide/img005.png" alt="toys" style="width: 100%; height: 550px; padding: 20px;">
+                                        <img id="carousel_img" src="img/slider_items/toy004.jpg" alt="Fourth Slide">
                                     </div>
                                 </div>
-                                <!-- /#main-slider -->
+                                <!-- Carousel controls -->
+                                <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+                                    <!--<i class="fa fa-chevron-left" aria-hidden="true"></i></span>-->
+                                </a>
+                                <a class="carousel-control right" href="#myCarousel" data-slide="next">
+                                    <!--<i class="fa fa-chevron-right" aria-hidden="true"></i></span>-->
+                                </a>
                             </div>
-                        </div>
-                        <!-- *** ADVANTAGES HOMEPAGE ***-->
-                        <div id="advantages">
-                            <div class="container">
-                                <div class="same-height-row">
-                                    <div class="col-sm-4">
-                                        <div class="box same-height clickable">
-                                            <div class="icon"><i class="fa fa-heart"></i>
-                                            </div>
-                                            <h3><a href="#">We love our customers</a></h3>
-                                            <p>We strive to provide best possible service ever</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="box same-height clickable">
-                                            <div class="icon"><i class="fa fa-tags"></i>
-                                            </div>
-                                            <h3><a href="#">Best prices</a></h3>
-                                            <p>We aim to provide the best prices ever</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="box same-height clickable">
-                                            <div class="icon"><i class="fa fa-thumbs-up"></i>
-                                            </div>
-                                            <h3><a href="#">Quality guaranteed</a></h3>
-                                            <p>We try to choose the best brands ever</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /.row -->
-                            </div>
-                            <!-- /.container -->
                         </div>
                     </div>
                 </div>
                 <!-- *** page_content End *** -->
             </div>
         </div>
-        <!-- /#all -->        
+        <!-- /#all -->   
     </body>
     <footer>
         <!-- *** COPYRIGHT *** -->
@@ -208,7 +175,7 @@
         <!-- *** COPYRIGHT END *** -->
     </footer>
     <!-- *** SCRIPTS TO INCLUDE ***-->
-    <script src="js/jquery-1.11.0.min.js"></script>
+    <!--<script src="js/jquery-1.11.0.min.js"></script>-->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.cookie.js"></script>
     <script src="js/waypoints.min.js"></script>

@@ -209,7 +209,7 @@ function fetch_product_data($fullCategory, $itemLimitPerPage)
     // Query
     if(($category[0] == "all items") && (sizeof($searchTerm) > 1))
     {
-        $result = mysqli_query($conn,"SELECT s.id, s.product_name, s.price, s.main_image FROM stock_item s
+        $result = mysqli_query($conn,"SELECT s.id, s.product_name, s.product_code, s.price, s.main_image FROM stock_item s
         JOIN product_sub_category c ON s.product_sub_category_id = c.id
         JOIN product_category p ON c.product_category_id = p.id
         WHERE s.stock_level >= 1 AND s.is_active=1 AND s.product_name LIKE '%" . $searchTerm[1] . "%'
@@ -218,7 +218,7 @@ function fetch_product_data($fullCategory, $itemLimitPerPage)
     }
     else if($category[0] == "all items")
     {
-       $result = mysqli_query($conn,"SELECT s.id, s.product_name, s.price, s.main_image FROM stock_item s
+       $result = mysqli_query($conn,"SELECT s.id, s.product_name, s.product_code, s.price, s.main_image FROM stock_item s
         JOIN product_sub_category c ON s.product_sub_category_id = c.id
         JOIN product_category p ON c.product_category_id = p.id
         WHERE s.stock_level >= 1 AND s.is_active=1
@@ -226,7 +226,7 @@ function fetch_product_data($fullCategory, $itemLimitPerPage)
        
     } else{
         
-    $result = mysqli_query($conn,"SELECT s.id, s.product_name, s.price, s.main_image FROM stock_item s
+    $result = mysqli_query($conn,"SELECT s.id, s.product_name, s.product_code, s.price, s.main_image FROM stock_item s
         JOIN product_sub_category c ON s.product_sub_category_id = c.id
         JOIN product_category p ON c.product_category_id = p.id
         WHERE p.category =\"" . $category[0] . "\" AND c.sub_cat_name=\"" . $category[1] . "\"
@@ -300,10 +300,10 @@ function countRecords($category, $searchTerm)
 
 /**
  * 
- * @param type $singleProductId
+ * @param type $productCode
  * @return type
  */
-function fetch_single_product_details($singleProductId)
+function fetch_single_product_details($productCode)
 {
     
     // To be changed later
@@ -316,7 +316,7 @@ function fetch_single_product_details($singleProductId)
     }
    
     // Query
-    $query = "SELECT * FROM stock_item WHERE id=?;";
+    $query = "SELECT * FROM stock_item WHERE product_code = ? ;";
     // Prepare
     $stmt = $conn->stmt_init();
     $stmt->prepare($query);
@@ -327,7 +327,7 @@ function fetch_single_product_details($singleProductId)
     }
     
     // Bind params
-    $stmt->bind_param("i", $singleProductId);
+    $stmt->bind_param("s", $productCode);
     $result;
     
     if($stmt->execute())
@@ -350,10 +350,10 @@ function fetch_single_product_details($singleProductId)
 
 /**
  * 
- * @param type $singleProductId
+ * @param type $product_code
  * @return type
  */
-function fetch_single_product_images($singleProductId)
+function fetch_single_product_images($product_code)
 {        
     // To be changed later
     $conn = connect();
@@ -364,8 +364,10 @@ function fetch_single_product_images($singleProductId)
         die("Connection failed: " . $conn->connect_error);
     }
    
-    // Query
-    $query = "SELECT * FROM stock_item_image WHERE stock_item_id=?;";
+    // Query 
+    $query = "SELECT i.* FROM stock_item_image i " 
+            . "JOIN stock_item s ON i.stock_item_id = s.id "
+            . "WHERE s.product_code = ? ;";
     // Prepare
     $stmt = $conn->stmt_init();
     $stmt->prepare($query);
@@ -376,9 +378,9 @@ function fetch_single_product_images($singleProductId)
     }
     
     // Bind params
-    $stmt->bind_param("i", $singleProductId);
+    $stmt->bind_param("s", $product_code);
     $result;
-    
+
     if($stmt->execute())
     {
        $result = $stmt->get_result();
@@ -386,7 +388,7 @@ function fetch_single_product_images($singleProductId)
     }
     else
     {
-        return;
+        return ;
     }
     
     // Cleanup

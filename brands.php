@@ -15,7 +15,7 @@
       <meta name="keywords" content="">
       <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100' rel='stylesheet' type='text/css'>
       <!-- styles -->
-      <link href="css/font-awesome.css" rel="stylesheet">
+      <link href="css/font-awesomeOLD.css" rel="stylesheet">
       <link href="css/bootstrap.min.css" rel="stylesheet">
       <link href="css/animate.min.css" rel="stylesheet">
       <link href="css/owl.carousel.css" rel="stylesheet">
@@ -80,6 +80,7 @@
       <!-- *** SCRIPTS TO INCLUDE ***
          _________________________________________________________ -->
       <!--<script src="js/jquery-1.11.0.min.js"></script>-->
+      <link href="./css/font-awesome.css" rel="stylesheet">
       <script src="js/bootstrap.min.js"></script>
       <script src="js/jquery.cookie.js"></script>
       <script src="js/waypoints.min.js"></script>

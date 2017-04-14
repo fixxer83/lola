@@ -1,13 +1,13 @@
 <?php 
     include_once 'php/productData/ProductFetcher.php';
     session_start(); 
-    ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
+    <meta charset="utf-8">
+    <title>Lola's Rooms</title>
     <head>
-        <title>Lola's Rooms</title>
         <link rel="icon" href="img/lola_upd.png">
-        <meta charset="utf-8">
         <meta name="robots" content="all,follow">
         <meta name="googlebot" content="index,follow,snippet,archive">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,7 +15,7 @@
         <meta name="keywords" content="">
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100' rel='stylesheet' type='text/css'>
         <!-- styles -->
-        <link href="css/font-awesome.css" rel="stylesheet">
+        <link href="css/font-awesomeOLD.css" rel="stylesheet">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/animate.min.css" rel="stylesheet">
         <link href="css/owl.carousel.css" rel="stylesheet">
@@ -55,10 +55,10 @@
                             </div>
                             <div class="about_content">
                                 <!-- *** About us content *** -->
-                            </div>
-                            <script>
-                                $(".about_content").load("./text_content/aboutUs.txt");
-                            </script>
+                                <script>
+                                    $(".about_content").load("./text_content/aboutUs.txt");
+                                </script>
+                             </div>
                         </div>
                     </section>
                     <!-- /.container -->
@@ -77,6 +77,7 @@
         </footer>
         <!-- *** SCRIPTS TO INCLUDE *** -->
         <!--<script src="js/jquery-1.11.0.min.js"></script>-->
+        <link href="./css/font-awesome.css" rel="stylesheet">
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery.cookie.js"></script>
         <script src="js/waypoints.min.js"></script>
